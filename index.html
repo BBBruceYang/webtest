@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+ <head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    rel="stylesheet">
+  <link rel="stylesheet" href="static/bootstrap-theme.min.css">
+  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+ </head>
+ <body>
+  <div class="container">
+   <div class="header">
+    <h3 class="text-muted">上傳檔案並分析</h3>
+   </div>
+   <hr/>
+   <div>
+    目前只允許上傳'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'
+   <form action="upload" method="post" enctype="multipart/form-data">
+   <input type="file" multiple="" name="file[]" class="span3" /><br/>
+    <input type="submit" value="Upload" class="span2">
+   </form>
+   </div>
+  </div>
+ </body>
+</html>
