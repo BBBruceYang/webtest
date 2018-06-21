@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+<!--html註解-->
 
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap-theme.min.css">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    -->
 </head>
+<style>
+.word {
+    background: #E4FFE9;
+    width: 250px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: "microsoft yahei";
+}
+/* 強制不換行 */
+.nowrap {
+    white-space: nowrap;
+}
+/* 允許單詞內斷句，首先會嘗試挪到下一行，看看下一行的寬度夠不夠，
+            不夠的話就進行單詞內的斷句 */
+.breakword {
+    word-wrap: break-word;
+}
+</style>
 
 <body>
-        <div class="container">
+    <div class="container">
         <div class="header">
             <h3 class="text-muted">點選的檔案的內容</h3>
         </div>
@@ -14,8 +36,27 @@
         <div>
             恩....就是檔案的內容啊
             <ul>
-            	<h1>Hello {{ file_content }}!</h1>
+                <h1>系統資訊!</h1>
+                
+                <h2> 開啟的檔案 {{ filename }} </h2>
+                <div>
+                    {% autoescape false %} {{ file_content }} {% endautoescape %}
+                </div>
+                <style type="text/css">
+                .file_content {
+                    font-size: 2px
+                }
+                </style>
+                
             </ul>
         </div>
         <hr/>
-        <pre>
+        <div>
+            <aside id="aside">
+                <h2>ASIDE 側邊</h2>
+            </aside>
+        </div>
+    </div>
+</body>
+
+</html>
