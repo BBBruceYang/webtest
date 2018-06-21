@@ -26,6 +26,7 @@ def index():
   return render_template('index.html')
 
 # Route that will process the file upload
+#上傳選取的檔案並將上傳的檔案做成列表
 @app.route('/upload', methods=['POST'])
 def upload():
   # 取得上傳資料的名稱
@@ -59,17 +60,52 @@ def uploaded_file(filename):
   #return send_from_directory(app.config['UPLOAD_FOLDER'],
   #              filename)
   with  open(os.path.join(app.config['UPLOAD_FOLDER'],filename)) as f:
-      file_content = f.read()
+    lines = f.readlines()
+    infostart = 'systeminfo';
+    infoend = '登入伺服器'
+    count = 0
+    for line in lines:
+      if infostart in line:
+        #print (line)
+        print (count)
+        i = count
+      if infoend in line:
+        #print (line)
+        print (count)
+        j = count
+      else: 
+        count += 1
+    print ("finish")
+    print ("起始的行數=", i, "結束的行數", j)
+    file_content = lines[i:j]
+    file_content = [item.replace("\n", "<br/>") for item in file_content]
+    file_content = "".join(file_content)
+    filename = filename
+  return render_template('result.html', file_content = file_content, filename = filename)
+
+@app.route('/getsysinfo')
+#以後會加按鍵觸發功能
+def  getsysinfo(filename):
+  with  open(os.path.join(app.config['UPLOAD_FOLDER'],filename)) as f:
+    lines = f.readlines()
+    infostart = 'systeminfo';
+    infoend = '登入伺服器'
+    count = 0
+    for line in lines:
+      if infostart in line:
+        print (count)
+        i = count
+      if infoend in line:
+        print (count)
+        j = count
+      else: 
+        count += 1
+    print ("finish")
+    print ("起始的行數=", i, "結束的行數", j)
+    file_content = lines[i:j]
+    file_content = [item.replace("\n", "<br/>") for item in file_content]
+    file_content = "".join(file_content)
   return render_template('result.html', file_content = file_content)
-
-@app.route('/getuser')
-def  getuser():
-        for file in uploaded_files:
-
-            # You should use os.path.join here too.
-            with  open(os.path.join(app.config['UPLOAD_FOLDER'],filename)) as f:
-                  file_content = f.read()
-        return file_content
 
 if __name__ == '__main__':
   app.run(
